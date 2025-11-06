@@ -7,12 +7,12 @@ import { Trophy, Target, Moon, Clock, Award } from 'lucide-react';
 export default function ProgressDashboard() {
   const sessions = useLiveQuery(() => db.driveSessions.toArray()) || [];
 
-  const totalHours = sessions.reduce((sum, s) => sum + (s.duration || 0), 0) / 60;
+  const totalHours = sessions.reduce((sum: number, s: any) => sum + (s.duration || 0), 0) / 60;
   const nightHours = sessions
-    .filter(s => s.isNightDrive)
-    .reduce((sum, s) => sum + (s.duration || 0), 0) / 60;
+    .filter((s: any) => s.isNightDrive)
+    .reduce((sum: number, s: any) => sum + (s.duration || 0), 0) / 60;
   const dayHours = totalHours - nightHours;
-  const verifiedCount = sessions.filter(s => s.verified).length;
+  const verifiedCount = sessions.filter((s: any) => s.verified).length;
 
   const totalProgress = Math.min((totalHours / 50) * 100, 100);
   const nightProgress = Math.min((nightHours / 10) * 100, 100);

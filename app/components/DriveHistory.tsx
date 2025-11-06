@@ -49,7 +49,7 @@ export default function DriveHistory() {
         </h2>
 
         <div className="space-y-3">
-          {sessions.map((session) => (
+          {sessions.map((session: DriveSession) => (
             <div
               key={session.id}
               className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"

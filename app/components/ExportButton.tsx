@@ -14,8 +14,8 @@ export default function ExportButton() {
     try {
       const sessions = await db.driveSessions.orderBy('startTime').toArray();
 
-      const totalHours = sessions.reduce((sum, s) => sum + (s.duration || 0), 0) / 60;
-      const nightHours = sessions.filter(s => s.isNightDrive).reduce((sum, s) => sum + (s.duration || 0), 0) / 60;
+      const totalHours = sessions.reduce((sum: number, s: any) => sum + (s.duration || 0), 0) / 60;
+      const nightHours = sessions.filter((s: any) => s.isNightDrive).reduce((sum: number, s: any) => sum + (s.duration || 0), 0) / 60;
 
       let text = '='.repeat(60) + '\n';
       text += 'TEEN DRIVE TIME - DRIVING LOG\n';
@@ -24,12 +24,12 @@ export default function ExportButton() {
       text += `Night Hours: ${nightHours.toFixed(2)} / 10 hours\n`;
       text += `Day Hours: ${(totalHours - nightHours).toFixed(2)} hours\n`;
       text += `Total Drives: ${sessions.length}\n`;
-      text += `Verified Drives: ${sessions.filter(s => s.verified).length}\n\n`;
+      text += `Verified Drives: ${sessions.filter((s: any) => s.verified).length}\n\n`;
       text += '='.repeat(60) + '\n';
       text += 'DRIVE SESSIONS\n';
       text += '='.repeat(60) + '\n\n';
 
-      sessions.forEach((session, index) => {
+      sessions.forEach((session: any, index: number) => {
         text += `Drive #${index + 1}\n`;
         text += `-`.repeat(60) + '\n';
         text += `Date: ${format(new Date(session.startTime), 'MMM dd, yyyy')}\n`;
@@ -72,8 +72,8 @@ export default function ExportButton() {
     try {
       const sessions = await db.driveSessions.orderBy('startTime').toArray();
 
-      const totalHours = sessions.reduce((sum, s) => sum + (s.duration || 0), 0) / 60;
-      const nightHours = sessions.filter(s => s.isNightDrive).reduce((sum, s) => sum + (s.duration || 0), 0) / 60;
+      const totalHours = sessions.reduce((sum: number, s: any) => sum + (s.duration || 0), 0) / 60;
+      const nightHours = sessions.filter((s: any) => s.isNightDrive).reduce((sum: number, s: any) => sum + (s.duration || 0), 0) / 60;
 
       const doc = new jsPDF();
       let yPos = 20;
@@ -95,7 +95,7 @@ export default function ExportButton() {
       yPos += 7;
       doc.text(`Total Drives: ${sessions.length}`, 20, yPos);
       yPos += 7;
-      doc.text(`Verified Drives: ${sessions.filter(s => s.verified).length}`, 20, yPos);
+      doc.text(`Verified Drives: ${sessions.filter((s: any) => s.verified).length}`, 20, yPos);
       yPos += 15;
 
       // Sessions
@@ -103,7 +103,7 @@ export default function ExportButton() {
       doc.text('DRIVE SESSIONS', 20, yPos);
       yPos += 10;
 
-      sessions.forEach((session, index) => {
+      sessions.forEach((session: any, index: number) => {
         if (yPos > 270) {
           doc.addPage();
           yPos = 20;
