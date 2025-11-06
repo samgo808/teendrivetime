@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#2563eb"/>
+  <path d="M 156 280 L 356 280 L 356 340 L 156 340 Z" fill="white"/>
+  <path d="M 186 230 L 326 230 L 326 280 L 186 280 Z" fill="white"/>
+  <circle cx="206" cy="340" r="30" fill="white"/>
+  <circle cx="306" cy="340" r="30" fill="white"/>
+  <text x="256" y="420" font-family="Arial" font-size="48" fill="white" text-anchor="middle">TDT</text>
+</svg>

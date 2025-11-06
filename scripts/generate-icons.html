@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Icons</title>
+</head>
+<body>
+    <canvas id="canvas192" width="192" height="192" style="display:none;"></canvas>
+    <canvas id="canvas512" width="512" height="512" style="display:none;"></canvas>
+
+    <script>
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+
+            // Background
+            ctx.fillStyle = '#2563eb';
+            ctx.fillRect(0, 0, size, size);
+
+            // Car icon (simplified)
+            ctx.fillStyle = '#ffffff';
+
+            // Car body
+            const carWidth = size * 0.6;
+            const carHeight = size * 0.35;
+            const carX = (size - carWidth) / 2;
+            const carY = size * 0.45;
+
+            // Main body
+            ctx.fillRect(carX, carY, carWidth, carHeight * 0.6);
+
+            // Cabin
+            const cabinWidth = carWidth * 0.6;
+            const cabinHeight = carHeight * 0.5;
+            const cabinX = carX + (carWidth - cabinWidth) / 2;
+            const cabinY = carY - cabinHeight;
+            ctx.fillRect(cabinX, cabinY, cabinWidth, cabinHeight);
+
+            // Wheels
+            const wheelRadius = size * 0.08;
+            const wheelY = carY + carHeight * 0.6;
+
+            ctx.beginPath();
+            ctx.arc(carX + carWidth * 0.25, wheelY, wheelRadius, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(carX + carWidth * 0.75, wheelY, wheelRadius, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // Generate 192x192
+        const canvas192 = document.getElementById('canvas192');
+        drawIcon(canvas192, 192);
+
+        // Generate 512x512
+        const canvas512 = document.getElementById('canvas512');
+        drawIcon(canvas512, 512);
+
+        // Download links
+        document.body.innerHTML += '<h2>Right-click and save these images to public/ folder:</h2>';
+
+        const link192 = document.createElement('a');
+        link192.download = 'icon-192.png';
+        link192.href = canvas192.toDataURL();
+        link192.textContent = 'Download icon-192.png';
+        document.body.appendChild(link192);
+        document.body.appendChild(document.createElement('br'));
+
+        const link512 = document.createElement('a');
+        link512.download = 'icon-512.png';
+        link512.href = canvas512.toDataURL();
+        link512.textContent = 'Download icon-512.png';
+        document.body.appendChild(link512);
+
+        // Auto download (may be blocked by browser)
+        setTimeout(() => {
+            link192.click();
+            setTimeout(() => link512.click(), 500);
+        }, 100);
+    </script>
+</body>
+</html>
