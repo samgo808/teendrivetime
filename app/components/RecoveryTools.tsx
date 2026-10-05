@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, FormEvent, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useMemo, useState } from 'react';
 import { format } from 'date-fns';
 import { ArchiveRestore, DatabaseBackup, PlusCircle } from 'lucide-react';
 import { db, DriveSession } from '@/lib/db';
@@ -103,7 +103,6 @@ export default function RecoveryTools() {
   const [form, setForm] = useState(emptyForm);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [isWorking, setIsWorking] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const suggestedDriveType = useMemo<DriveType>(() => {
     const hour = Number(form.startTime.split(':')[0]);
@@ -317,10 +316,19 @@ export default function RecoveryTools() {
           <button disabled={isWorking} onClick={downloadBackup} className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-green-700 hover:bg-green-800 disabled:bg-gray-400 text-white rounded-md">
             <DatabaseBackup className="w-5 h-5" /> Download JSON Backup
           </button>
-          <button disabled={isWorking} onClick={() => fileInputRef.current?.click()} className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-blue-700 hover:bg-blue-800 disabled:bg-gray-400 text-white rounded-md">
+          <label className={`relative flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 text-white rounded-md ${
+            isWorking ? 'bg-gray-400' : 'bg-blue-700 hover:bg-blue-800 cursor-pointer'
+          }`}>
             <ArchiveRestore className="w-5 h-5" /> Restore JSON Backup
-          </button>
-          <input ref={fileInputRef} type="file" accept="application/json,.json" onChange={restoreBackup} className="hidden" />
+            <input
+              type="file"
+              accept="application/json,.json"
+              onChange={restoreBackup}
+              disabled={isWorking}
+              aria-label="Restore JSON backup"
+              className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+            />
+          </label>
         </div>
       </div>
 
