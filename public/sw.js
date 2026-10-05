@@ -1,5 +1,5 @@
 // TeenDriveTime Service Worker
-const CACHE_NAME = 'teendrivetime-v3';
+const CACHE_NAME = 'teendrivetime-v4';
 const urlsToCache = [
   '/',
   '/manifest.json',

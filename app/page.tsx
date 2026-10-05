@@ -48,7 +48,7 @@ export default function Home() {
         {/* Footer */}
         <footer className="text-center mt-12 pb-6 text-sm text-gray-500 dark:text-gray-400">
           <p>Stay safe on the road! 🚗</p>
-          <p className="mt-1">TeenDriveTime v1.1</p>
+          <p className="mt-1">TeenDriveTime v1.2.0</p>
         </footer>
       </div>
     </main>
