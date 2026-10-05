@@ -41,8 +41,8 @@ const normalizeSession = (value: unknown): Omit<DriveSession, 'id'> => {
   const createdAt = raw.createdAt == null ? new Date() : parseDate(raw.createdAt, 'created date');
   const duration = Number(raw.duration);
 
-  if (!Number.isFinite(duration) || duration <= 0 || duration > 24 * 60) {
-    throw new Error('Every drive must have a duration between 1 minute and 24 hours.');
+  if (!Number.isFinite(duration) || duration < 0 || duration > 24 * 60) {
+    throw new Error('Every imported drive must have a duration between 0 minutes and 24 hours.');
   }
 
   const normalizeLocation = (location: unknown, name: string) => {
