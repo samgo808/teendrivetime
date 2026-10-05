@@ -56,7 +56,7 @@ export default function VerificationModal({ session, onClose, onVerified }: Veri
             <strong>Duration:</strong> {session.duration} minutes
           </p>
           <p className="text-gray-600 dark:text-gray-300">
-            <strong>Distance:</strong> {session.distance?.toFixed(2)} miles
+            <strong>Distance:</strong> {session.distance == null ? 'Not recorded' : `${session.distance.toFixed(2)} miles`}
           </p>
           <p className="text-gray-600 dark:text-gray-300">
             <strong>Type:</strong> {session.isNightDrive ? 'Night Drive' : 'Day Drive'}

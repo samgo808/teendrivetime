@@ -73,6 +73,7 @@ export default function DriveTracker() {
         isNightDrive: activeDrive.isNightDrive,
         verified: false,
         createdAt: new Date(),
+        entrySource: 'tracked',
       };
 
       await db.driveSessions.add(session);

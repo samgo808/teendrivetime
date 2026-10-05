@@ -4,6 +4,7 @@ import DriveTracker from './components/DriveTracker';
 import ProgressDashboard from './components/ProgressDashboard';
 import DriveHistory from './components/DriveHistory';
 import ExportButton from './components/ExportButton';
+import RecoveryTools from './components/RecoveryTools';
 import RegisterServiceWorker from './register-sw';
 import { Car } from 'lucide-react';
 
@@ -34,6 +35,9 @@ export default function Home() {
           {/* Progress Dashboard */}
           <ProgressDashboard />
 
+          {/* Historical entry and backup tools */}
+          <RecoveryTools />
+
           {/* Export */}
           <ExportButton />
 
@@ -44,7 +48,7 @@ export default function Home() {
         {/* Footer */}
         <footer className="text-center mt-12 pb-6 text-sm text-gray-500 dark:text-gray-400">
           <p>Stay safe on the road! 🚗</p>
-          <p className="mt-1">TeenDriveTime v1.0</p>
+          <p className="mt-1">TeenDriveTime v1.1</p>
         </footer>
       </div>
     </main>

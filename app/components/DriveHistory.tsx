@@ -7,6 +7,13 @@ import { format } from 'date-fns';
 import { MapPin, Clock, Moon, Sun, CheckCircle, Circle, Trash2 } from 'lucide-react';
 import VerificationModal from './VerificationModal';
 
+const sourceLabels: Record<NonNullable<DriveSession['entrySource']>, string> = {
+  tracked: 'GPS tracked',
+  pdf: 'PDF-backed',
+  estimated: 'Reconstructed estimate',
+  imported: 'Imported legacy record',
+};
+
 export default function DriveHistory() {
   const sessions = useLiveQuery(() =>
     db.driveSessions.orderBy('startTime').reverse().toArray()
@@ -79,6 +86,16 @@ export default function DriveHistory() {
                 </button>
               </div>
 
+              <div className="mb-3">
+                <span className={`inline-flex rounded-full px-2 py-1 text-xs font-medium ${
+                  session.entrySource === 'estimated'
+                    ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300'
+                    : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
+                }`}>
+                  {sourceLabels[session.entrySource || 'imported']}
+                </span>
+              </div>
+
               <div className="grid grid-cols-2 gap-3 text-sm mb-3">
                 <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                   <Clock className="w-4 h-4" />
@@ -86,7 +103,7 @@ export default function DriveHistory() {
                 </div>
                 <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                   <MapPin className="w-4 h-4" />
-                  <span>{session.distance?.toFixed(2)} mi</span>
+                  <span>{session.distance == null ? 'Not recorded' : `${session.distance.toFixed(2)} mi`}</span>
                 </div>
               </div>
 

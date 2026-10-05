@@ -6,6 +6,15 @@ import { format } from 'date-fns';
 import { Download, FileText, File } from 'lucide-react';
 import jsPDF from 'jspdf';
 
+const sourceLabels: Record<string, string> = {
+  tracked: 'GPS tracked',
+  pdf: 'PDF-backed',
+  estimated: 'Reconstructed estimate',
+  imported: 'Imported legacy record',
+};
+
+const sourceLabel = (source?: string) => sourceLabels[source || 'imported'] || 'Imported legacy record';
+
 export default function ExportButton() {
   const [isExporting, setIsExporting] = useState(false);
 
@@ -36,8 +45,9 @@ export default function ExportButton() {
         text += `Start Time: ${format(new Date(session.startTime), 'h:mm a')}\n`;
         text += `End Time: ${session.endTime ? format(new Date(session.endTime), 'h:mm a') : 'N/A'}\n`;
         text += `Duration: ${session.duration} minutes (${(session.duration! / 60).toFixed(2)} hours)\n`;
-        text += `Distance: ${session.distance?.toFixed(2)} miles\n`;
+        text += `Distance: ${session.distance == null ? 'Not recorded' : `${session.distance.toFixed(2)} miles`}\n`;
         text += `Type: ${session.isNightDrive ? 'Night Drive' : 'Day Drive'}\n`;
+        text += `Source: ${sourceLabel(session.entrySource)}\n`;
         text += `Start Location: ${session.startLocation.address || `${session.startLocation.latitude.toFixed(4)}, ${session.startLocation.longitude.toFixed(4)}`}\n`;
         if (session.endLocation) {
           text += `End Location: ${session.endLocation.address || `${session.endLocation.latitude.toFixed(4)}, ${session.endLocation.longitude.toFixed(4)}`}\n`;
@@ -118,7 +128,10 @@ export default function ExportButton() {
         doc.setFontSize(9);
         doc.text(`Time: ${format(new Date(session.startTime), 'h:mm a')} - ${session.endTime ? format(new Date(session.endTime), 'h:mm a') : 'N/A'}`, 20, yPos);
         yPos += 5;
-        doc.text(`Duration: ${session.duration} min (${(session.duration! / 60).toFixed(2)} hrs) | Distance: ${session.distance?.toFixed(2)} mi | Type: ${session.isNightDrive ? 'Night' : 'Day'}`, 20, yPos);
+        const distanceText = session.distance == null ? 'Not recorded' : `${session.distance.toFixed(2)} mi`;
+        doc.text(`Duration: ${session.duration} min (${(session.duration! / 60).toFixed(2)} hrs) | Distance: ${distanceText} | Type: ${session.isNightDrive ? 'Night' : 'Day'}`, 20, yPos);
+        yPos += 5;
+        doc.text(`Source: ${sourceLabel(session.entrySource)}`, 20, yPos);
         yPos += 5;
 
         const startLoc = session.startLocation.address || `${session.startLocation.latitude.toFixed(4)}, ${session.startLocation.longitude.toFixed(4)}`;

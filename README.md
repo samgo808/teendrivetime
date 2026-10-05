@@ -11,6 +11,8 @@ A Progressive Web App (PWA) to track driving hours for learner's permit requirem
 - **Gamification**: Earn badges and achievements as you progress
 - **Verification System**: Adult supervisors can sign off on drives with initials and comments
 - **Export Functionality**: Download complete driving log as PDF or TXT file
+- **Historical Entry**: Add PDF-backed or estimated past drives with clear source labels
+- **Backup & Restore**: Download and restore complete JSON backups without overwriting existing records
 - **Installable PWA**: Add to iPhone home screen for native app-like experience
 - **Offline Support**: Works without internet connection (service worker)
 - **Local Storage**: All data stored locally on device using IndexedDB
@@ -182,6 +184,13 @@ A Progressive Web App (PWA) to track driving hours for learner's permit requirem
 - **Achievements**: Earn badges for milestones (10 hrs, 25 hrs, 50 hrs, etc.)
 - **Stats**: View total drives, verified drives, and hours remaining
 
+### Restoring and Backing Up Data
+
+1. Use **Add a Past Drive** for a drive that was not recorded live.
+2. Mark the source as **PDF-backed** or **Reconstructed estimate**.
+3. Use **Download JSON Backup** regularly. Unlike PDF/TXT exports, JSON backups can be restored into the app.
+4. Use **Restore JSON Backup** to add missing records. Exact duplicates are skipped and existing records are never overwritten.
+
 ## Project Structure 📁
 
 ```
@@ -192,7 +201,8 @@ teendrivetime/
 │   │   ├── ProgressDashboard.tsx  # Progress bars and stats
 │   │   ├── DriveHistory.tsx       # List of past drives
 │   │   ├── VerificationModal.tsx  # Verification form
-│   │   └── ExportButton.tsx       # PDF/TXT export
+│   │   ├── ExportButton.tsx       # PDF/TXT export
+│   │   └── RecoveryTools.tsx      # Past-drive entry and JSON backup/restore
 │   ├── layout.tsx                  # Root layout with metadata
 │   ├── page.tsx                    # Main page
 │   ├── globals.css                 # Global styles

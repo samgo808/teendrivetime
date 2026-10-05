@@ -21,6 +21,7 @@ export interface DriveSession {
   comments?: string;
   verified: boolean;
   createdAt: Date;
+  entrySource?: 'tracked' | 'pdf' | 'estimated' | 'imported';
 }
 
 export class DriveTimeDB extends Dexie {
